@@ -1,6 +1,6 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
 import 'package:susaf_app/enums.dart';
+import 'package:susaf_app/navbar.dart';
 
 class DimensionPage extends StatefulWidget {
   final String featureId;
@@ -15,6 +15,8 @@ class DimensionPage extends StatefulWidget {
 class _DimensionPageState extends State<DimensionPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ResponsiveNavBarPage(
+      child: Text(widget.featureId),
+    );
   }
 }

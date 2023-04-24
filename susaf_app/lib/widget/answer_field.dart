@@ -4,7 +4,7 @@ class MyForm extends StatefulWidget {
   const MyForm({Key? key}) : super(key: key);
 
   @override
-  _MyFormState createState() => _MyFormState();
+  State<MyForm> createState() => _MyFormState();
 }
 
 class _MyFormState extends State<MyForm> {
@@ -60,9 +60,11 @@ class _MyFormState extends State<MyForm> {
                         decoration: InputDecoration(
                           hintText: 'Enter some text',
                           hintStyle: TextStyle(fontSize: fontSize),
-                          border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                          border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0))),
                         ),
-                          maxLines: null,
+                        maxLines: null,
                         style: TextStyle(fontSize: fontSize),
                       ),
                     ),

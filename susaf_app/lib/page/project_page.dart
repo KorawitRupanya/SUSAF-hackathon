@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:susaf_app/enums.dart';
 import 'package:susaf_app/model/project.dart';
 import 'package:susaf_app/navbar.dart';
@@ -15,7 +13,7 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
-  List<String> _features = [];
+  final List<String> _features = [];
   final _formKey = GlobalKey<FormState>();
   final _featuresController = TextEditingController();
 
@@ -79,10 +77,11 @@ class _ProjectPageState extends State<ProjectPage> {
                     );
                   },
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 TextFormField(
                   controller: _featuresController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.add),
                     hintText: 'Add Feature',
                   ),
                   onFieldSubmitted: (value) {
@@ -92,7 +91,7 @@ class _ProjectPageState extends State<ProjectPage> {
                     });
                   },
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -101,7 +100,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       Navigator.pop(context);
                     }
                   },
-                  child: Text('Save'),
+                  child: const Text('Save'),
                 ),
               ],
             ),
