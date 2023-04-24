@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:susaf_app/features.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.dark(useMaterial3: true),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const FeaturePage(),
+      // const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
