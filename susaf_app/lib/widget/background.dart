@@ -8,16 +8,18 @@ Widget background(BuildContext context, String backgroundText) {
       child: Column(
         children: [
           Flexible(
-            flex: 1,
-            child: Text(
-              'Background',
-              style: TextStyle(
-                fontSize: screenWidth * 0.08,
-                fontWeight: FontWeight.bold,
-                color: Colors.amberAccent,
-              ),
-            ),
-          ),
+              flex: 1,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                child: Text(
+                  'Background',
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.04,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amberAccent,
+                  ),
+                ),
+              )),
           Flexible(
             flex: 3,
             child: Padding(
@@ -28,7 +30,7 @@ Widget background(BuildContext context, String backgroundText) {
                     Text(
                       backgroundText,
                       style: TextStyle(
-                        fontSize: screenWidth * 0.04,
+                        fontSize: screenWidth * 0.02,
                         fontWeight: FontWeight.bold,
                         color: Colors.amberAccent,
                       ),
