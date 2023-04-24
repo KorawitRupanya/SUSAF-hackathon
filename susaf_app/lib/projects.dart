@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:susaf_app/model/project.dart';
+import 'package:susaf_app/page/project_page.dart';
 
 class ProjectBox {
   final String title;
@@ -24,33 +26,37 @@ class _ProjectGridState extends State<ProjectGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 50,
-          left: 50,
-          right: 50,
-        ),
-        child: GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          mainAxisSpacing: 50,
-          crossAxisSpacing: 50,
-          children: [
-            ..._projects.map((project) => _buildProjectBox(project)),
-            _buildAddProjectBox(),
-          ],
-        ),
-      ),
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 2,
+      mainAxisSpacing: 50,
+      crossAxisSpacing: 50,
+      children: [
+        ..._projects.map((project) => _buildProjectBox(project)),
+        _buildAddProjectBox(),
+      ],
     );
   }
 
   Widget _buildProjectBox(ProjectBox project) {
-    return Card(
-      color: Colors.teal,
-      child: ListTile(
-        title: Text(project.title),
-        subtitle: Text(project.description),
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProjectPage(
+              project: Project(
+            id: 1,
+            title: project.title,
+            description: project.description,
+          )),
+        ),
+      ),
+      child: Card(
+        color: Colors.teal,
+        child: ListTile(
+          title: Text(project.title),
+          subtitle: Text(project.description),
+        ),
       ),
     );
   }
@@ -92,7 +98,7 @@ class _ProjectGridState extends State<ProjectGrid> {
               const SizedBox(
                 height: 10,
               ),
-              TextButton.icon(
+              ElevatedButton.icon(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     setState(() {

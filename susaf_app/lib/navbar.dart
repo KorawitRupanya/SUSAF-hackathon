@@ -29,6 +29,12 @@ class ResponsiveNavBarPage extends StatelessWidget {
         elevation: 10,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
+      chipTheme: const ChipThemeData(
+        elevation: 5,
+        padding: EdgeInsets.all(5),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5))),
+      ),
     );
   }
 
@@ -78,12 +84,19 @@ class ResponsiveNavBarPage extends StatelessWidget {
         ),
         drawer: isLargeScreen ? null : _drawer(),
         body: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               color: Theme.of(context).canvasColor,
               width: MediaQuery.of(context).size.width * 0.3,
             ),
-            child,
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.7,
+              child: Padding(
+                padding: const EdgeInsets.all(50),
+                child: child,
+              ),
+            ),
           ],
         ),
       ),
