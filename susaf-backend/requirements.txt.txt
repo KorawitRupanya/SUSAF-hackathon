@@ -1,6 +1,0 @@
-flask
-pandas
-tuya_connector
-logging
-mysql.connector
-openapi
