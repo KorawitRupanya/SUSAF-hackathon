@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:susaf_app/enums.dart';
-import 'package:susaf_app/navbar.dart';
 import 'package:susaf_app/page/questionnaire_page.dart';
 
 class DimensionPage extends StatefulWidget {
@@ -17,20 +16,18 @@ class DimensionPage extends StatefulWidget {
 class _DimensionPageState extends State<DimensionPage> {
   @override
   Widget build(BuildContext context) {
-    return ResponsiveNavBarPage(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BreadCrumb(
-            items: [
-              BreadCrumbItem(content: Text(widget.featureId)),
-              BreadCrumbItem(content: Text(widget.dimension.name)),
-            ],
-            divider: const Icon(Icons.chevron_right),
-          ),
-          const QuestionnairePage(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BreadCrumb(
+          items: [
+            BreadCrumbItem(content: Text(widget.featureId)),
+            BreadCrumbItem(content: Text(widget.dimension.name)),
+          ],
+          divider: const Icon(Icons.chevron_right),
+        ),
+        const QuestionnairePage(),
+      ],
     );
   }
 }

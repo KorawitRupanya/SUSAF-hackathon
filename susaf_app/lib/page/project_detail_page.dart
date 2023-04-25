@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:susaf_app/enums.dart';
-import 'package:susaf_app/model/project.dart';
-import 'package:susaf_app/navbar.dart';
 import 'package:susaf_app/page/dimension_page.dart';
 
 class ProjectDetailPage extends StatefulWidget {
-  final Project project;
-  const ProjectDetailPage({super.key, required this.project});
+  final int projectId;
+  const ProjectDetailPage({super.key, required this.projectId});
 
   @override
   State<ProjectDetailPage> createState() => _ProjectDetailPageState();
@@ -25,18 +23,18 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveNavBarPage(
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.project.title,
+            "Project ${widget.projectId}",
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          Text(
-            widget.project.description,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+          // Text(
+          //   widget.project.description,
+          //   style: Theme.of(context).textTheme.bodyMedium,
+          // ),
           const SizedBox(
             height: 50,
           ),
@@ -81,7 +79,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                 TextFormField(
                   controller: _featuresController,
                   decoration: const InputDecoration(
-                    icon: Icon(Icons.add),
+                    prefixIcon: Icon(Icons.add),
                     hintText: 'Add Feature',
                   ),
                   onFieldSubmitted: (value) {

@@ -41,6 +41,7 @@ dependencies:
   editable: ^2.0.0
   go_router: ^6.5.8
   url_launcher: ^6.1.10
+  flutter_polygon: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:susaf_app/model/project.dart';
-import 'package:susaf_app/navbar.dart';
-import 'package:susaf_app/page/project_detail_page.dart';
+import 'package:go_router/go_router.dart';
 
 class ProjectBox {
   final String title;
@@ -10,14 +8,14 @@ class ProjectBox {
   ProjectBox({required this.title, required this.description});
 }
 
-class ProjectGrid extends StatefulWidget {
-  const ProjectGrid({super.key});
+class ProjectPage extends StatefulWidget {
+  const ProjectPage({super.key});
 
   @override
-  State<ProjectGrid> createState() => _ProjectGridState();
+  State<ProjectPage> createState() => _ProjectPageState();
 }
 
-class _ProjectGridState extends State<ProjectGrid> {
+class _ProjectPageState extends State<ProjectPage> {
   final List<ProjectBox> _projects = [
     ProjectBox(title: 'Project 1', description: 'This is project 1'),
     ProjectBox(title: 'Project 2', description: 'This is project 2'),
@@ -41,17 +39,20 @@ class _ProjectGridState extends State<ProjectGrid> {
 
   Widget _buildProjectBox(ProjectBox project) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProjectDetailPage(
-              project: Project(
-            id: 1,
-            title: project.title,
-            description: project.description,
-          )),
-        ),
-      ),
+      onTap: () => context.go('/projects/1'),
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => ProjectDetailPage(
+      //       // project: Project(
+      //       //   id: 1,
+      //       //   title: project.title,
+      //       //   description: project.description,
+      //       // ),
+      //       projectId: 1,
+      //     ),
+      //   ),
+      // ),
       child: Card(
         color: Colors.teal,
         child: ListTile(
@@ -120,17 +121,6 @@ class _ProjectGridState extends State<ProjectGrid> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ProjectPage extends StatelessWidget {
-  const ProjectPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ResponsiveNavBarPage(
-      child: const ProjectGrid(),
     );
   }
 }
