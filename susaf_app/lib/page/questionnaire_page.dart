@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:susaf_app/widget/answer_field.dart';
 import 'package:susaf_app/widget/background.dart';
@@ -15,21 +13,38 @@ class QuestionnairePage extends StatefulWidget {
 }
 
 class _QuestionnairePageState extends State<QuestionnairePage> {
+  List<String> bg = ['lorem', 'ipsum'];
+  List<String> qs = ['lorem', 'ipsum'];
+  int bgIndex = 0;
+  int qsIndex = 0;
+
+  void updateQuestion() {
+    setState(() {
+      bgIndex = bgIndex + 1;
+      qsIndex = qsIndex + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    String bgCurrent = bg[bgIndex];
+    String qsCurrent = qs[qsIndex];
+
     MultiSplitView multiSplitView =
         MultiSplitView(axis: Axis.vertical, children: [
       MultiSplitView(
         initialAreas: [Area(weight: 0.3)],
         children: [
-          background(context, 'Lorem'),
-          question(context, 'Lorem'),
+          background(context, bgCurrent),
+          question(context, qsCurrent),
         ],
       ),
-      const MyForm(),
+      MyForm(
+        onComplete: updateQuestion,
+      ),
     ]);
 
-    final _editableKey = GlobalKey<EditableState>();
+    final editableKey = GlobalKey<EditableState>();
 
     List rows = [
       {
@@ -42,27 +57,51 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
       },
     ];
     List cols = [
-      {"title": 'No', 'widthFactor': 0.05, 'key': 'no', 'editable': false},
-      {"title": 'Background', 'widthFactor': 0.2, 'key': 'background', 'editable': false},
-      {"title": 'Question', 'widthFactor': 0.2, 'key': 'question', 'editable': false},
-      {"title": 'Answer', 'widthFactor': 0.2, 'key': 'answer', 'editable': true},
-      {"title": 'ChatGPT', 'widthFactor': 0.05, 'key': 'chatGPT', 'editable': false},
-      {"title": 'Is Edited', 'widthFactor': 0.05, 'key': 'edit', 'editable': false},
+      {
+        "title": 'Background',
+        'widthFactor': 0.1,
+        'key': 'background',
+        'editable': false
+      },
+      {
+        "title": 'Question',
+        'widthFactor': 0.2,
+        'key': 'question',
+        'editable': false
+      },
+      {
+        "title": 'Answer',
+        'widthFactor': 0.2,
+        'key': 'answer',
+        'editable': true
+      },
+      {
+        "title": 'ChatGPT',
+        'widthFactor': 0.075,
+        'key': 'chatGPT',
+        'editable': false
+      },
+      {
+        "title": 'Is Edited',
+        'widthFactor': 0.075,
+        'key': 'edit',
+        'editable': false
+      },
     ];
 
     void _addNewRow() {
       setState(() {
-        _editableKey.currentState?.createRow();
+        editableKey.currentState?.createRow();
       });
     }
 
     void _printEditedRows() {
-      List? editedRows = _editableKey.currentState?.editedRows;
+      List? editedRows = editableKey.currentState?.editedRows;
       print(editedRows);
     }
 
     Editable editableTable = Editable(
-      key: _editableKey,
+      key: editableKey,
       columns: cols,
       rows: rows,
       zebraStripe: true,
@@ -111,22 +150,26 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
 
     return Expanded(
       flex: 1,
-      child: MultiSplitViewTheme(
-        data: MultiSplitViewThemeData(
-          dividerPainter: DividerPainters.grooved1(
-            color: Colors.orange[100]!,
-            highlightedColor: Colors.orange[900]!,
-          ),
-        ),
-        child: Stack(
-          children: [
-            multiSplitView,
-            Positioned(
-              bottom: 16.0,
-              right: 16.0,
-              child: floatingActionButton,
+      child: Card(
+        color: Colors.transparent,
+        elevation: 10,
+        child: MultiSplitViewTheme(
+          data: MultiSplitViewThemeData(
+            dividerPainter: DividerPainters.grooved1(
+              color: Colors.orange[100]!,
+              highlightedColor: Colors.orange[900]!,
             ),
-          ],
+          ),
+          child: Stack(
+            children: [
+              multiSplitView,
+              Positioned(
+                bottom: 16.0,
+                right: 16.0,
+                child: floatingActionButton,
+              ),
+            ],
+          ),
         ),
       ),
     );

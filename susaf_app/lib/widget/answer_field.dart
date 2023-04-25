@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyForm extends StatefulWidget {
-  const MyForm({Key? key}) : super(key: key);
+  final Function onComplete;
+
+  const MyForm({Key? key, required this.onComplete}) : super(key: key);
 
   @override
   State<MyForm> createState() => _MyFormState();
@@ -29,90 +31,86 @@ class _MyFormState extends State<MyForm> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Please enter your answer here',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: Colors.white),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _textController,
-                        focusNode: _focusNode,
-                        validator: (value) {
-                          if (value?.isEmpty != true) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: 'Enter some text',
-                          // hintStyle: TextStyle(fontSize: fontSize),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
-                        ),
-                        maxLines: null,
-                        // style: TextStyle(fontSize: fontSize),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: TextFormField(
+                      controller: _textController,
+                      focusNode: _focusNode,
+                      validator: (value) {
+                        if (value?.isEmpty != true) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Your answer...',
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
                       ),
+                      maxLines: 3,
                     ),
-                    IconButton(
-                      onPressed: () {
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
                         print('ChatGPT-3 Triggered');
                       },
-                      icon: Image.asset(
-                        '../../../assets/ChatGPT_logo.png',
-                        height: fontSize * 2,
-                        width: fontSize * 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Image.asset(
+                          '../../../assets/ChatGPT_logo.png',
+                          width: 80,
+                          height: 80,
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() == true) {
-                      // Submit form
-                      String text = _textController.text;
-                      print('Submitted text: $text');
-                      _focusNode.unfocus();
-                    }
-                  },
-                  // style: ElevatedButton.styleFrom(
-                  //   minimumSize: Size(screenWidth * 0.3, 0),
-                  // ),
-                  child: const Text(
-                    'Submit',
-                    // style: TextStyle(fontSize: fontSize),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // if (_formKey.currentState?.validate() == true) {
+                        // Submit form
+                        String text = _textController.text;
+                        print('Submitted text: $text');
+                        _focusNode.unfocus();
+                        widget.onComplete();
+                        // }
+                      },
+                      child: const Text(
+                        'Submit',
+                      ),
+                    ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    // Skip form
-                    print('Skipped form');
-                    _focusNode.unfocus();
-                  },
-                  // style: TextButton.styleFrom(
-                  //   minimumSize: Size(screenWidth * 0.3, 0),
-                  // ),
-                  child: const Text(
-                    'Skip',
-                    // style: TextStyle(fontSize: fontSize),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: OutlinedButton(
+                      onPressed: () {
+                        // Skip form
+                        print('Skipped form');
+                        _focusNode.unfocus();
+                      },
+                      child: const Text(
+                        'Skip',
+                      ),
+                    ),
                   ),
                 ),
               ],

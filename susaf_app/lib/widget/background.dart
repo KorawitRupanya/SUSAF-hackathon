@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 Widget background(BuildContext context, String backgroundText) {
   return Card(
     child: Center(
-      child: Column(
-        children: [
-          Flexible(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Flexible(
+              flex: 1,
               child: Text(
                 'Background',
                 style: Theme.of(context)
@@ -17,11 +17,8 @@ Widget background(BuildContext context, String backgroundText) {
                     ?.copyWith(color: Colors.amberAccent),
               ),
             ),
-          ),
-          Flexible(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+            Flexible(
+              flex: 3,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -32,8 +29,8 @@ Widget background(BuildContext context, String backgroundText) {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );

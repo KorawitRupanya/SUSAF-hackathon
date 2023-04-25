@@ -88,10 +88,10 @@ class ResponsiveNavBarPage extends StatelessWidget {
           children: [
             Container(
               color: Theme.of(context).canvasColor,
-              width: MediaQuery.of(context).size.width * 0.3,
+              width: MediaQuery.of(context).size.width * 0.2,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.7,
+              width: MediaQuery.of(context).size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.all(50),
                 child: child,
