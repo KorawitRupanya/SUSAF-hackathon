@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:susaf_app/widget/answer_field.dart';
 import 'package:susaf_app/widget/background.dart';
@@ -34,7 +36,9 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
         "no": '1',
         "background": 'Test',
         "question": 'Test',
-        "answer": 'Test'
+        "answer": 'Test',
+        "chatGPT": '✅',
+        "edit": '✅'
       },
     ];
     List cols = [
@@ -42,6 +46,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
       {"title": 'Background', 'widthFactor': 0.2, 'key': 'background', 'editable': false},
       {"title": 'Question', 'widthFactor': 0.2, 'key': 'question', 'editable': false},
       {"title": 'Answer', 'widthFactor': 0.2, 'key': 'answer', 'editable': true},
+      {"title": 'ChatGPT', 'widthFactor': 0.05, 'key': 'chatGPT', 'editable': false},
+      {"title": 'Is Edited', 'widthFactor': 0.05, 'key': 'edit', 'editable': false},
     ];
 
     void _addNewRow() {
