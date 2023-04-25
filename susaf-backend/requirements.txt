@@ -1,0 +1,7 @@
+Flask
+Flask-RESTful
+pandas
+json
+datetime
+mysql.connector
+openapi
