@@ -38,6 +38,7 @@ dependencies:
   multi_split_view: ^2.4.0
   google_fonts: ^4.0.3
   flutter_breadcrumb: ^1.0.1
+  editable: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -81,42 +81,44 @@ class _MyFormState extends State<MyForm> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() == true) {
-                      // Submit form
-                      String text = _textController.text;
-                      print('Submitted text: $text');
-                      _focusNode.unfocus();
-                    }
-                  },
-                  // style: ElevatedButton.styleFrom(
-                  //   minimumSize: Size(screenWidth * 0.3, 0),
-                  // ),
-                  child: Text(
-                    'Submit',
-                    // style: TextStyle(fontSize: fontSize),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Skip form
-                    print('Skipped form');
-                    _focusNode.unfocus();
-                  },
-                  // style: TextButton.styleFrom(
-                  //   minimumSize: Size(screenWidth * 0.3, 0),
-                  // ),
-                  child: Text(
-                    'Skip',
-                    // style: TextStyle(fontSize: fontSize),
-                  ),
-                ),
-              ],
-            ),
+            Padding(
+                padding: EdgeInsets.only(bottom: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() == true) {
+                          // Submit form
+                          String text = _textController.text;
+                          print('Submitted text: $text');
+                          _focusNode.unfocus();
+                        }
+                      },
+                      // style: ElevatedButton.styleFrom(
+                      //   minimumSize: Size(screenWidth * 0.3, 0),
+                      // ),
+                      child: Text(
+                        'Submit',
+                        // style: TextStyle(fontSize: fontSize),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // Skip form
+                        print('Skipped form');
+                        _focusNode.unfocus();
+                      },
+                      // style: TextButton.styleFrom(
+                      //   minimumSize: Size(screenWidth * 0.3, 0),
+                      // ),
+                      child: Text(
+                        'Skip',
+                        // style: TextStyle(fontSize: fontSize),
+                      ),
+                    ),
+                  ],
+                ))
           ],
         ),
       ),
