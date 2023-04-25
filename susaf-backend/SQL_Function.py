@@ -4,9 +4,9 @@ import pandas as pd
 
 class SQL_Function():
 	HOSTNAME = "localhost"
-	USERNAME = "root"
-	PASSWORD = ""
-	DATABASE = "susafhackathon"
+	USERNAME = "" #USER OF YOUR MYSQL
+	PASSWORD = "" #PASSWORD OF YOUR MYSQL
+	DATABASE = "susafhackathon" #IMPORT THE .SQL TO MYSQL SERVER
 
 	def __init__(self):
 		# Connect to the database
