@@ -32,11 +32,10 @@ class _MyFormState extends State<MyForm> {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Please enter your answer here',
-                style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(color: Colors.white),
               ),
             ),
             Expanded(
@@ -57,15 +56,15 @@ class _MyFormState extends State<MyForm> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter some text',
-                          hintStyle: TextStyle(fontSize: fontSize),
-                          border: const OutlineInputBorder(
+                          // hintStyle: TextStyle(fontSize: fontSize),
+                          border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0))),
                         ),
                         maxLines: null,
-                        style: TextStyle(fontSize: fontSize),
+                        // style: TextStyle(fontSize: fontSize),
                       ),
                     ),
                     IconButton(
@@ -94,12 +93,12 @@ class _MyFormState extends State<MyForm> {
                       _focusNode.unfocus();
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(screenWidth * 0.3, 0),
-                  ),
+                  // style: ElevatedButton.styleFrom(
+                  //   minimumSize: Size(screenWidth * 0.3, 0),
+                  // ),
                   child: Text(
                     'Submit',
-                    style: TextStyle(fontSize: fontSize),
+                    // style: TextStyle(fontSize: fontSize),
                   ),
                 ),
                 TextButton(
@@ -108,12 +107,12 @@ class _MyFormState extends State<MyForm> {
                     print('Skipped form');
                     _focusNode.unfocus();
                   },
-                  style: TextButton.styleFrom(
-                    minimumSize: Size(screenWidth * 0.3, 0),
-                  ),
+                  // style: TextButton.styleFrom(
+                  //   minimumSize: Size(screenWidth * 0.3, 0),
+                  // ),
                   child: Text(
                     'Skip',
-                    style: TextStyle(fontSize: fontSize),
+                    // style: TextStyle(fontSize: fontSize),
                   ),
                 ),
               ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:susaf_app/features.dart';
+import 'package:susaf_app/page/feature_page.dart';
 
 void main() {
   runApp(const MyApp());
