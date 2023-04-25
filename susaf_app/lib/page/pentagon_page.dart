@@ -15,7 +15,7 @@ class PentagonPage extends StatelessWidget {
           padding: const EdgeInsets.all(18.0),
           decoration: ShapeDecoration(
             color: Colors.blueAccent.shade100,
-            shape: PolygonBorder(
+            shape: const PolygonBorder(
               sides: 5,
             ),
           ),
@@ -26,7 +26,7 @@ class PentagonPage extends StatelessWidget {
           padding: const EdgeInsets.all(18.0),
           decoration: ShapeDecoration(
             color: Colors.lightBlueAccent.shade100,
-            shape: PolygonBorder(
+            shape: const PolygonBorder(
               sides: 5,
             ),
           ),
@@ -37,7 +37,7 @@ class PentagonPage extends StatelessWidget {
           padding: const EdgeInsets.all(18.0),
           decoration: ShapeDecoration(
             color: Colors.lightBlue.shade100,
-            shape: PolygonBorder(
+            shape: const PolygonBorder(
               sides: 5,
             ),
           ),
@@ -53,27 +53,27 @@ class PentagonPage extends StatelessWidget {
                 ),
           ),
         ),
-        Positioned(
+        const Positioned(
           left: 200,
           top: 70,
           child: Text('Social'),
         ),
-        Positioned(
+        const Positioned(
           right: 200,
           top: 70,
           child: Text('Individual'),
         ),
-        Positioned(
+        const Positioned(
           left: 100,
           bottom: 150,
           child: Text('Environmental'),
         ),
-        Positioned(
+        const Positioned(
           right: 100,
           bottom: 150,
           child: Text('Technical'),
         ),
-        Positioned(
+        const Positioned(
           // left: 200,
           bottom: 20,
           child: Text('Economic'),

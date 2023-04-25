@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:susaf_app/enums.dart';
-import 'package:susaf_app/model/feature.dart';
 
 class ProjectDetailPage extends StatefulWidget {
   final int projectId;
@@ -111,7 +110,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
 
   List<Widget> _buildDimensionChips(String feature) {
     List<Widget> chips = List.empty(growable: true);
-    Feature featureObj = Feature(id: 1, name: feature, projectId: 1);
+
     int featureId = 1;
 
     for (var dim in Dimension.values) {

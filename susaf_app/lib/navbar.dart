@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:susaf_app/widget/susaf_info.dart';
 
 class ResponsiveNavBarPage extends StatelessWidget {
   final Widget child;
@@ -89,6 +90,7 @@ class ResponsiveNavBarPage extends StatelessWidget {
             Container(
               color: Theme.of(context).canvasColor,
               width: MediaQuery.of(context).size.width * 0.2,
+              child: const SusafInfo(),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,

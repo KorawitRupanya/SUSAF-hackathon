@@ -23,8 +23,6 @@ class _MyFormState extends State<MyForm> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final fontSize = screenWidth * 0.04;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Card(
