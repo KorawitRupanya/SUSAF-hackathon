@@ -1,140 +1,136 @@
 import 'package:flutter/material.dart';
-import 'package:susaf_app/enums.dart';
 import 'package:susaf_app/model/project.dart';
 import 'package:susaf_app/navbar.dart';
-import 'package:susaf_app/page/dimension_page.dart';
+import 'package:susaf_app/page/project_detail_page.dart';
 
-class ProjectPage extends StatefulWidget {
-  final Project project;
-  const ProjectPage({super.key, required this.project});
+class ProjectBox {
+  final String title;
+  final String description;
 
-  @override
-  State<ProjectPage> createState() => _ProjectPageState();
+  ProjectBox({required this.title, required this.description});
 }
 
-class _ProjectPageState extends State<ProjectPage> {
-  final List<String> _features = [];
-  final _formKey = GlobalKey<FormState>();
-  final _featuresController = TextEditingController();
+class ProjectGrid extends StatefulWidget {
+  const ProjectGrid({super.key});
 
   @override
-  void dispose() {
-    _featuresController.dispose();
-    super.dispose();
-  }
+  State<ProjectGrid> createState() => _ProjectGridState();
+}
+
+class _ProjectGridState extends State<ProjectGrid> {
+  final List<ProjectBox> _projects = [
+    ProjectBox(title: 'Project 1', description: 'This is project 1'),
+    ProjectBox(title: 'Project 2', description: 'This is project 2'),
+  ];
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveNavBarPage(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.project.title,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          Text(
-            widget.project.description,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Features',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                const Divider(
-                  thickness: 5,
-                ),
-                const SizedBox(height: 8.0),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _features.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      isThreeLine: true,
-                      title: Text(_features[index]),
-                      subtitle: Row(
-                        children: _buildDimensionChips(_features[index]),
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.grey,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _features.removeAt(index);
-                          });
-                        },
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 8.0),
-                TextFormField(
-                  controller: _featuresController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.add),
-                    hintText: 'Add Feature',
-                  ),
-                  onFieldSubmitted: (value) {
-                    setState(() {
-                      _features.add(value);
-                      _featuresController.clear();
-                    });
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Save the project
-                      // ...
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: const Text('Save'),
-                ),
-              ],
-            ),
-          ),
-        ],
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 2,
+      mainAxisSpacing: 50,
+      crossAxisSpacing: 50,
+      children: [
+        ..._projects.map((project) => _buildProjectBox(project)),
+        _buildAddProjectBox(),
+      ],
+    );
+  }
+
+  Widget _buildProjectBox(ProjectBox project) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProjectDetailPage(
+              project: Project(
+            id: 1,
+            title: project.title,
+            description: project.description,
+          )),
+        ),
+      ),
+      child: Card(
+        color: Colors.teal,
+        child: ListTile(
+          title: Text(project.title),
+          subtitle: Text(project.description),
+        ),
       ),
     );
   }
 
-  List<Widget> _buildDimensionChips(String feature) {
-    List<Widget> chips = List.empty(growable: true);
-    for (var dim in Dimension.values) {
-      chips.add(
-        Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DimensionPage(
-                  featureId: feature,
-                  dimension: dim,
-                ),
+  Widget _buildAddProjectBox() {
+    String title = "", description = "";
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Project Title"),
+                onChanged: (value) => title = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-            ),
-            child: Chip(
-              label: Text(dim.name),
-              backgroundColor: colors[dim],
-            ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                maxLines: 3,
+                decoration:
+                    const InputDecoration(labelText: "Project Description"),
+                onChanged: (value) => description = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      _projects.add(
+                        ProjectBox(
+                          title: title,
+                          description: description,
+                        ),
+                      );
+                    });
+                  }
+                  _formKey.currentState?.reset();
+                },
+                icon: const Icon(Icons.add),
+                label: const Text("Add New Project"),
+              ),
+            ],
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
+}
 
-    return chips;
+class ProjectPage extends StatelessWidget {
+  const ProjectPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveNavBarPage(
+      child: const ProjectGrid(),
+    );
   }
 }

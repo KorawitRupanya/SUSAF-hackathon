@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:susaf_app/page/feature_page.dart';
+import 'package:susaf_app/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'SusAF',
       theme: ThemeData.dark(useMaterial3: true),
-      home: const FeaturePage(),
+      routerConfig: router,
     );
   }
 }

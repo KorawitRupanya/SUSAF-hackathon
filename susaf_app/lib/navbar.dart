@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResponsiveNavBarPage extends StatelessWidget {
@@ -67,11 +68,10 @@ class ResponsiveNavBarPage extends StatelessWidget {
                 const Text(
                   "SusAF - The Sustainability Awareness Framework",
                   style: TextStyle(
-                    // color: Colors.green,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                if (isLargeScreen) Expanded(child: _navBarItems())
+                if (isLargeScreen) Expanded(child: _navBarItems(context))
               ],
             ),
           ),
@@ -105,7 +105,7 @@ class ResponsiveNavBarPage extends StatelessWidget {
 
   Widget _drawer() => Drawer(
         child: ListView(
-          children: _menuItems
+          children: _menuItems.keys
               .map((item) => ListTile(
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
@@ -116,13 +116,13 @@ class ResponsiveNavBarPage extends StatelessWidget {
         ),
       );
 
-  Widget _navBarItems() => Row(
+  Widget _navBarItems(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: _menuItems
+        children: _menuItems.keys
             .map(
               (item) => InkWell(
-                onTap: () {},
+                onTap: () => context.go(_menuItems[item] ?? '/'),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 24.0, horizontal: 16),
@@ -137,10 +137,10 @@ class ResponsiveNavBarPage extends StatelessWidget {
       );
 }
 
-final List<String> _menuItems = <String>[
-  'About',
-  'Projects',
-];
+final Map<String, String> _menuItems = <String, String>{
+  'About': '/about',
+  'Projects': '/projects',
+};
 
 enum Menu { itemOne, itemTwo, itemThree }
 
