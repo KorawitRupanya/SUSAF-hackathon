@@ -8,4 +8,12 @@ class Project {
     required this.title,
     required this.description,
   });
+
+  factory Project.fromJson(Map<String, dynamic> json) {
+    return Project(
+      id: json['Project_ID'],
+      title: json['title'],
+      description: json['description'],
+    );
+  }
 }

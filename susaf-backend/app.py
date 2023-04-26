@@ -23,7 +23,77 @@ mysql_ip = "www.db4free.net"
 mysql_user = "susafhackathon"
 mysql_password = "susafhackathon"
 
-OpenAPI_Key = "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"
+OpenAPI_Key = "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"
+
+class SQL_Function():
+
+	def __init__(self, ipMySQL, userMySQL, passwordMySQL):
+			# Connect to the database
+		self.cnx = mysql.connector.connect(
+			#host=SQL_Config.SQL_Config().HOSTNAME,
+			#user=SQL_Config.SQL_Config().USERNAME,
+			#password=SQL_Config.SQL_Config().PASSWORD,
+			host=ipMySQL,
+			user=userMySQL,
+			password=passwordMySQL,
+			database="susafhackathon"
+		)
+		self.cursor = self.cnx.cursor()
+
+	def __del__(self):
+		# Close the connection
+		self.cursor.close()
+		self.cnx.close()
+
+	def insert(self, query, values):
+		# Create
+		#query = "INSERT INTO table_name (column1, column2, column3) VALUES (%s, %s, %s)"
+		#values = ("value1", "value2", "value3")
+		self.cursor.execute(query, values)
+		self.cnx.commit()
+		return self.cursor.lastrowid
+
+	def select(self, query):
+		# Read
+		self.cursor.execute(query)
+		rows = self.cursor.fetchall()
+
+		# Get column names
+		columns = [desc[0] for desc in self.cursor.description]
+
+		# Convert rows to list of dictionaries
+		result = []
+		for row in rows:
+			row_dict = {}
+			for i, value in enumerate(row):
+				row_dict[columns[i]] = value
+			result.append(row_dict)
+
+		return result
+
+	def selectPandas(self, query):
+		# Read
+		#query = "SELECT * FROM table_name WHERE column1 = 'column1value'"
+		self.cursor.execute(query)
+		rows = self.cursor.fetchall()
+		df = pd.DataFrame(rows) # Create a DataFrame from the query result
+		return df
+
+	def update(self, query, values):
+		# Update
+		#query = "UPDATE table_name SET column2 = %s WHERE column1 = %s"
+		#values = ("new_value", "value1")
+		self.cursor.execute(query, values)
+		self.cnx.commit()
+
+	def update(self, query, values):
+		# Delete
+		#query = "DELETE FROM table_name WHERE column1 = %s"
+		#values = ("value1",)
+		self.cursor.execute(query, values)
+		self.cnx.commit()
+
+	
 
 #GET LIST OF QUESTIONS
 @app.route("/questions", methods=["GET"])
@@ -171,9 +241,10 @@ def createProject():
 	sql_func = SQL_Function(ipMySQL=mysql_ip, userMySQL=mysql_user, passwordMySQL=mysql_password)
 	query = "INSERT INTO projects(title, description) VALUES (%s, %s)"
 	values = (title, description)
-	sql_func.insert(query, values)
+	new_id = sql_func.insert(query, values)
+	
 	#return {"pushResult": "OK"}
-	json_data = json.dumps({"pushResult": "OK"})
+	json_data = json.dumps({"id": new_id})
 	return Response(json_data, content_type='application/json')
 
 @app.route("/projects", methods=["GET"])
@@ -186,7 +257,7 @@ def viewProject():
 	json_data = json.dumps(rows)
 	return Response(json_data, content_type='application/json')
 
-@app.route("/projectID", methods=["GET"])
+@app.route("/projects", methods=["GET"])
 #@swagger.doc(description='View project according to its ID')
 def viewProjectPerID():
 	# Extract the FeaturesID query parameter from the request
@@ -276,71 +347,4 @@ if __name__ == "__main__":
 	'''
 	app.run(debug=True, port=8001)
 
-class SQL_Function():
 
-	def __init__(self, ipMySQL, userMySQL, passwordMySQL):
-			# Connect to the database
-		self.cnx = mysql.connector.connect(
-			#host=SQL_Config.SQL_Config().HOSTNAME,
-			#user=SQL_Config.SQL_Config().USERNAME,
-			#password=SQL_Config.SQL_Config().PASSWORD,
-			host=ipMySQL,
-			user=userMySQL,
-			password=passwordMySQL,
-			database="susafhackathon"
-		)
-		self.cursor = self.cnx.cursor()
-
-	def __del__(self):
-		# Close the connection
-		self.cursor.close()
-		self.cnx.close()
-
-	def insert(self, query, values):
-		# Create
-		#query = "INSERT INTO table_name (column1, column2, column3) VALUES (%s, %s, %s)"
-		#values = ("value1", "value2", "value3")
-		self.cursor.execute(query, values)
-		self.cnx.commit()
-
-	def select(self, query):
-		# Read
-		self.cursor.execute(query)
-		rows = self.cursor.fetchall()
-
-		# Get column names
-		columns = [desc[0] for desc in self.cursor.description]
-
-		# Convert rows to list of dictionaries
-		result = []
-		for row in rows:
-			row_dict = {}
-			for i, value in enumerate(row):
-				row_dict[columns[i]] = value
-			result.append(row_dict)
-
-		return result
-
-	def selectPandas(self, query):
-		# Read
-		#query = "SELECT * FROM table_name WHERE column1 = 'column1value'"
-		self.cursor.execute(query)
-		rows = self.cursor.fetchall()
-		df = pd.DataFrame(rows) # Create a DataFrame from the query result
-		return df
-
-	def update(self, query, values):
-		# Update
-		#query = "UPDATE table_name SET column2 = %s WHERE column1 = %s"
-		#values = ("new_value", "value1")
-		self.cursor.execute(query, values)
-		self.cnx.commit()
-
-	def update(self, query, values):
-		# Delete
-		#query = "DELETE FROM table_name WHERE column1 = %s"
-		#values = ("value1",)
-		self.cursor.execute(query, values)
-		self.cnx.commit()
-
-	

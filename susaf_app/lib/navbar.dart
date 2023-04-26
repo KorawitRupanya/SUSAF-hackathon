@@ -37,6 +37,11 @@ class ResponsiveNavBarPage extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
       ),
+      listTileTheme: const ListTileThemeData(
+        tileColor: Colors.black26,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5))),
+      ),
     );
   }
 
