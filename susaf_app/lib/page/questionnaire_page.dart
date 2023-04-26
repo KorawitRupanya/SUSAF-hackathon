@@ -13,8 +13,14 @@ class QuestionnairePage extends StatefulWidget {
 }
 
 class _QuestionnairePageState extends State<QuestionnairePage> {
-  List<String> bg = ['lorem', 'ipsum'];
-  List<String> qs = ['lorem', 'ipsum'];
+  List<String> bg = [
+    'Value means the worth, or usefulness of something, principles or standards; judgement of what is important in life.',
+    'Governance means the processes of interaction and decision-making among the actors involved in a system through the laws, norms, power or language of an organized society.'
+  ];
+  List<String> qs = [
+    'How can the product or service create or destroy monetary value ? For whom ?',
+    'How can these changes impact the financial situation of the business and partners?'
+  ];
   int bgIndex = 0;
   int qsIndex = 0;
 
@@ -33,7 +39,6 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     MultiSplitView multiSplitView =
         MultiSplitView(axis: Axis.vertical, children: [
       MultiSplitView(
-        initialAreas: [Area(weight: 0.3)],
         children: [
           background(context, bgCurrent),
           question(context, qsCurrent),
@@ -49,9 +54,11 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     List rows = [
       {
         "no": '1',
-        "background": 'Test',
-        "question": 'Test',
-        "answer": 'Test',
+        "background":
+            'Value means the worth, or usefulness of something, principles or standards; judgement of what is important in life.',
+        "question":
+            'How can the product or service create or destroy monetary value ? For whom ?',
+        "answer": 'Dummy answer',
         "chatGPT": '✅',
         "edit": '✅'
       },

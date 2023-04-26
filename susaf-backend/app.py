@@ -283,10 +283,10 @@ def createFeature():
 
 	sql_func = SQL_Function(ipMySQL=mysql_ip, userMySQL=mysql_user, passwordMySQL=mysql_password)
 	query = "INSERT INTO features(Project_ID, Features_Name) VALUES (%s, %s)"
-	values = (Features_Name, Project_ID)
-	sql_func.insert(query, values)
+	values = (Project_ID, Features_Name)
+	new_id = sql_func.insert(query, values)
 	#return {"pushResult": "OK"}
-	json_data = json.dumps({"pushResult": "OK"})
+	json_data = json.dumps({"id": new_id})
 	return Response(json_data, content_type='application/json')
 
 @app.route("/features", methods=["GET"])
@@ -299,7 +299,7 @@ def viewFeature():
 	json_data = json.dumps(rows)
 	return Response(json_data, content_type='application/json')
 
-@app.route("/featureID", methods=["GET"])
+@app.route("/features", methods=["GET"])
 #@swagger.doc(description='View a feature according to its ID')
 def viewFeaturePerID():
 	# Extract the FeaturesID query parameter from the request
@@ -313,7 +313,7 @@ def viewFeaturePerID():
 	json_data = json.dumps(rows)
 	return Response(json_data, content_type='application/json')
 
-@app.route("/features_projectID", methods=["GET"])
+@app.route("/features", methods=["GET"])
 #@swagger.doc(description='View all features under a certain projectID')
 def viewFeaturePerProjectID():
 	# Extract the FeaturesID query parameter from the request

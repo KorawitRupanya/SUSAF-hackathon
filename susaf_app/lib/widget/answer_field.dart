@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:susaf_app/api/http_client.dart';
 
 class MyForm extends StatefulWidget {
   final Function onComplete;
@@ -59,6 +60,7 @@ class _MyFormState extends State<MyForm> {
                     flex: 1,
                     child: GestureDetector(
                       onTap: () {
+                        dummyCall();
                         print('ChatGPT-3 Triggered');
                       },
                       child: Padding(

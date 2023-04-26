@@ -12,11 +12,6 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final List<Widget> boxes = [];
 
   final _formKey = GlobalKey<FormState>();
