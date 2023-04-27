@@ -8,24 +8,24 @@ enum Dimension {
   technical,
 }
 
-enum Probability {
-  high,
-  medium,
-  low,
-}
+Map<int, String> probabilities = {
+  0: "high",
+  1: "medium",
+  2: "low",
+};
 
-enum Level {
-  immediate,
-  enabling,
-  structural,
-}
+Map<int, String> levels = {
+  0: "immediate",
+  1: "enabling",
+  2: "structural",
+};
 
-enum ImpactType {
-  positive,
-  negative,
-  neutral,
-  both,
-}
+Map<int, String> impactTypes = {
+  0: "positive",
+  1: "negative",
+  2: "neutral",
+  3: "both",
+};
 
 Map<Dimension, Color> colors = {
   Dimension.economic: Colors.lightBlueAccent,

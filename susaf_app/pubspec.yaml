@@ -44,6 +44,7 @@ dependencies:
   flutter_polygon: ^0.3.0+2
   http: ^0.13.5
   card_loading: ^0.3.0
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

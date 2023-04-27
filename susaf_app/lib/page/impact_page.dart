@@ -1,10 +1,8 @@
 import 'package:card_loading/card_loading.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:susaf_app/api/chatgpt.dart';
-import 'package:susaf_app/api/project.dart';
 import 'package:susaf_app/enums.dart';
-import 'package:susaf_app/model/project.dart';
 
 class ImpactPage extends StatefulWidget {
   final int featureId;
@@ -32,11 +30,10 @@ class _ImpactPageState extends State<ImpactPage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (boxes.isEmpty) {
-            boxes.addAll((snapshot.data ?? []).map((p) => _buildProjectBox(p)));
+            boxes.addAll((snapshot.data ?? []).map((p) => _buildImpactBox(p)));
           }
           return boxes.isEmpty
-              ? const Text(
-                  "You don't have any projects at the moment. Please create a new project to start your SusAF journey!")
+              ? const Text("AI could not generate impacts...")
               : ListView.builder(
                   itemCount: boxes.length,
                   itemBuilder: (context, index) => boxes[index],
@@ -48,14 +45,131 @@ class _ImpactPageState extends State<ImpactPage> {
     );
   }
 
-  Widget _buildProjectBox(String impact) {
-    return GestureDetector(
-      onTap: () {},
-      child: Card(
-        color: Colors.teal,
-        child: ListTile(
-          title: Text(impact),
-          // subtitle: Text(project.description),
+  Widget _buildImpactBox(String impact) {
+    int selectedLevel = 0, selectedType = 0, selectedProbability = 0;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: ExpandablePanel(
+        header: Card(
+          color: Colors.teal,
+          child: ListTile(
+            title: Text(impact),
+            // subtitle: Text(project.description),
+          ),
+        ),
+        collapsed: Container(),
+        expanded: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    const Expanded(flex: 1, child: Text('Level')),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Wrap(
+                        spacing: 5.0,
+                        children: List<Widget>.generate(
+                          levels.keys.length,
+                          (int index) {
+                            return ChoiceChip(
+                              selectedColor: Colors.greenAccent,
+                              backgroundColor: Colors.teal,
+                              label: Text(levels[index]!),
+                              selected: selectedLevel == index,
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  if (selected) {
+                                    selectedLevel = index;
+                                  }
+                                });
+                              },
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    const Expanded(flex: 1, child: Text('Probability')),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Wrap(
+                        spacing: 5.0,
+                        children: List<Widget>.generate(
+                          probabilities.keys.length,
+                          (int index) {
+                            return ChoiceChip(
+                              selectedColor: Colors.greenAccent,
+                              backgroundColor: Colors.teal,
+                              label: Text(probabilities[index]!),
+                              selected: selectedProbability == index,
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  if (selected) {
+                                    selectedProbability = index;
+                                  }
+                                });
+                              },
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    const Expanded(flex: 1, child: Text('Impact Type')),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Wrap(
+                        spacing: 5.0,
+                        children: List<Widget>.generate(
+                          impactTypes.keys.length,
+                          (int index) {
+                            return ChoiceChip(
+                              selectedColor: Colors.greenAccent,
+                              backgroundColor: Colors.teal,
+                              label: Text(impactTypes[index]!),
+                              selected: selectedType == index,
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  if (selected) {
+                                    selectedType = index;
+                                  }
+                                });
+                              },
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

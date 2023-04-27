@@ -5,9 +5,9 @@ class Impact {
   final int featureId;
   final Dimension dimension;
   final String impactText;
-  final Probability probability;
-  final Level level;
-  final ImpactType impactType;
+  final String probability;
+  final String level;
+  final String impactType;
 
   Impact({
     required this.id,
