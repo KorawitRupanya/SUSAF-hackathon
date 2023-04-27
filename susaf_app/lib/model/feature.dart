@@ -11,9 +11,9 @@ class Feature {
 
   factory Feature.fromJson(Map<String, dynamic> json) {
     return Feature(
-      id: json['Features_ID'],
-      name: json['Features_Name'],
-      projectId: json['Project_ID'],
+      id: json['id'],
+      name: json['name'],
+      projectId: json['project_id'],
     );
   }
 }

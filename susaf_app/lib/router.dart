@@ -5,6 +5,7 @@ import 'package:susaf_app/model/feature.dart';
 import 'package:susaf_app/navbar.dart';
 import 'package:susaf_app/page/about_page.dart';
 import 'package:susaf_app/page/dimension_page.dart';
+import 'package:susaf_app/page/impact_page.dart';
 import 'package:susaf_app/page/pentagon_page.dart';
 import 'package:susaf_app/page/project_detail_page.dart';
 import 'package:susaf_app/page/project_page.dart';
@@ -70,6 +71,19 @@ final GoRouter router = GoRouter(
                   ],
                 ),
               ],
+            ),
+            GoRoute(
+              path: 'impacts',
+              builder: (context, state) {
+                final featureId = state.queryParams['featureId']!;
+                final dimension = Dimension.values.firstWhere((e) =>
+                    e.toString() ==
+                    "Dimension.${state.queryParams['dimension']!}");
+                return ImpactPage(
+                  featureId: int.parse(featureId),
+                  dimension: dimension,
+                );
+              },
             ),
             GoRoute(
               path: 'pentagon',

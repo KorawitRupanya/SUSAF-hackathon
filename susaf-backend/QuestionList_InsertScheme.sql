@@ -1,4 +1,4 @@
-INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions`) VALUES 
+INSERT INTO `questions`(`id`, `dimension`, `background`, `question`) VALUES 
 ('S1','SOCIAL','Sense of community means the feeling of belong to an organization, to an area or to a group of like-minded people.','How can the product or service affect a person sense of belonging to these groups?'),
 
 ('S2','SOCIAL','Trust means having a firm belief in the reliability, truth, or ability of someone or something.','How can the product or service change the trust between the users and the business that owns the system?'),
@@ -13,7 +13,7 @@ INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions
 
 
 
-INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions`) VALUES ('I1','INDIVIDUAL','Health means the state of a person mental or physical condition.','How can the product or service improve or worsen a person physical, mental,and/or emotional health?(For example, can it make a person feel anything good or bad - e.g.(under)valued, (dis)respected, (in)dependent, or coerced?)'),
+INSERT INTO `questions`(`id`, `dimension`, `background`, `question`) VALUES ('I1','INDIVIDUAL','Health means the state of a person mental or physical condition.','How can the product or service improve or worsen a person physical, mental,and/or emotional health?(For example, can it make a person feel anything good or bad - e.g.(under)valued, (dis)respected, (in)dependent, or coerced?)'),
 
 ('I2','INDIVIDUAL','Lifelong learning means the use of learning opportunities throughout people lives for continuous development.','How can the product or service affect people competencies?'),
 
@@ -39,7 +39,7 @@ INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions
 
 
 
-INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions`) VALUES ('V1','ENVIRONMENTAL','Material and resources includes everything that is needed to produce, deploy, operate, and cease a product or service.','How are materials consumed to produce the product or service?'),
+INSERT INTO `questions`(`id`, `dimension`, `background`, `question`) VALUES ('V1','ENVIRONMENTAL','Material and resources includes everything that is needed to produce, deploy, operate, and cease a product or service.','How are materials consumed to produce the product or service?'),
 
 ('V2','ENVIRONMENTAL','Material and resources includes everything that is needed to produce, deploy, operate, and cease a product or service.','What about operating the product or service? E.g., requires hardware.'),
 
@@ -68,7 +68,7 @@ INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions
 ('V14','ENVIRONMENTAL','Logistics means the effects of the product or service on moving people and/or goods.','How can it affect the need (and distance) for moving people or goods? How can it affect the means by which people or goods move?');
 
 
-INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions`) VALUES ('E1','ECONOMIC','Value means the worth, or usefulness of something, principles or standards; judgement of what is important in life.','How can the product or service create or destroy monetary value ? For whom ?'),
+INSERT INTO `questions`(`id`, `dimension`, `background`, `question`) VALUES ('E1','ECONOMIC','Value means the worth, or usefulness of something, principles or standards; judgement of what is important in life.','How can the product or service create or destroy monetary value ? For whom ?'),
 
 ('E2','ECONOMIC','Value means the worth, or usefulness of something, principles or standards; judgement of what is important in life.','Are there any other related types of business value? For whom?'),
 
@@ -93,7 +93,7 @@ INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions
 
 ('E13','ECONOMIC','Innovation refers to something new or to a change made to an existing product, idea, or field.','Can it also impact the financial situation of their customers & others?');
 
-INSERT INTO `questions`(`Questions_ID`, `Questions_Header`, `Prompt`, `Questions`) VALUES ('T1','TECHNICAL','Maintainability means the degree to which an application is understood, repaired, or enhanced.','How are the operating system and runtime environment expected to change what does that required from maintainers of this system?'),
+INSERT INTO `questions`(`id`, `dimension`, `background`, `question`) VALUES ('T1','TECHNICAL','Maintainability means the degree to which an application is understood, repaired, or enhanced.','How are the operating system and runtime environment expected to change what does that required from maintainers of this system?'),
 
 ('T2','TECHNICAL','Maintainability means the degree to which an application is understood, repaired, or enhanced.','How can the correctness of the system be affected by other systems or affect the correctness of others?'),
 

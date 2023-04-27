@@ -8,6 +8,25 @@ enum Dimension {
   technical,
 }
 
+enum Probability {
+  high,
+  medium,
+  low,
+}
+
+enum Level {
+  immediate,
+  enabling,
+  structural,
+}
+
+enum ImpactType {
+  positive,
+  negative,
+  neutral,
+  both,
+}
+
 Map<Dimension, Color> colors = {
   Dimension.economic: Colors.lightBlueAccent,
   Dimension.environmental: Colors.greenAccent,

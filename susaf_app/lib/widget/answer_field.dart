@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:susaf_app/api/http_client.dart';
+import 'package:susaf_app/api/answer.dart';
+import 'package:susaf_app/api/chatgpt.dart';
+import 'package:susaf_app/model/feature.dart';
+import 'package:susaf_app/model/question.dart';
 
 class MyForm extends StatefulWidget {
+  final Feature feature;
+  final Question question;
   final Function onComplete;
 
-  const MyForm({Key? key, required this.onComplete}) : super(key: key);
+  const MyForm({
+    Key? key,
+    required this.feature,
+    required this.question,
+    required this.onComplete,
+  }) : super(key: key);
 
   @override
   State<MyForm> createState() => _MyFormState();
@@ -14,6 +24,9 @@ class _MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
   final _textController = TextEditingController();
   final _focusNode = FocusNode();
+
+  bool chatgpt = false;
+  bool isEdited = false;
 
   @override
   void dispose() {
@@ -37,7 +50,7 @@ class _MyFormState extends State<MyForm> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: TextFormField(
                       controller: _textController,
                       focusNode: _focusNode,
@@ -47,21 +60,30 @@ class _MyFormState extends State<MyForm> {
                         }
                         return null;
                       },
+                      onChanged: (value) {
+                        isEdited = true;
+                      },
                       decoration: const InputDecoration(
                         hintText: 'Your answer...',
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                       ),
-                      maxLines: 3,
+                      maxLines: 5,
                     ),
                   ),
                   Expanded(
                     flex: 1,
                     child: GestureDetector(
-                      onTap: () {
-                        dummyCall();
-                        print('ChatGPT-3 Triggered');
+                      onTap: () async {
+                        final suggestion = await generateAnswerSuggestion(
+                            featureName: widget.feature.name,
+                            question: widget.question);
+
+                        chatgpt = true;
+                        setState(() {
+                          _textController.text = suggestion;
+                        });
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -83,14 +105,19 @@ class _MyFormState extends State<MyForm> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: ElevatedButton(
-                      onPressed: () {
-                        // if (_formKey.currentState?.validate() == true) {
-                        // Submit form
+                      onPressed: () async {
                         String text = _textController.text;
-                        print('Submitted text: $text');
+
+                        await createAnswer(data: {
+                          'answer_text': text,
+                          'chatgpt': chatgpt,
+                          'is_edited': isEdited,
+                          'feature_id': widget.feature.id,
+                          'question_id': widget.question.id,
+                        });
+                        _textController.clear();
                         _focusNode.unfocus();
                         widget.onComplete();
-                        // }
                       },
                       child: const Text(
                         'Submit',
@@ -103,9 +130,9 @@ class _MyFormState extends State<MyForm> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: OutlinedButton(
                       onPressed: () {
-                        // Skip form
-                        print('Skipped form');
+                        _textController.clear();
                         _focusNode.unfocus();
+                        widget.onComplete();
                       },
                       child: const Text(
                         'Skip',

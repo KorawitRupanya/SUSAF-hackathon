@@ -1,0 +1,9 @@
+#app.yaml
+runtime: python310
+
+env_variables:
+  CLOUD_SQL_USERNAME: susaf
+  CLOUD_SQL_PASSWORD: susaf
+  CLOUD_SQL_DATABASE_NAME: susaf
+  CLOUD_SQL_CONNECTION_NAME: susaf-384911:europe-north1:susaf-db
+  OPENAI_KEY: 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

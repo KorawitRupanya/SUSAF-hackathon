@@ -30,8 +30,8 @@ Future<List<Project>> getAllProjects() async {
 }
 
 Future<Project> getProjectById(int id) async {
-  final response = await HttpClient.get(endpoint: '/projects?Project_ID=$id');
-  final jsonResponse = jsonDecode(response.body) as List;
-  Map<String, dynamic> json = Map.from(jsonResponse[0]);
+  final response = await HttpClient.get(endpoint: '/projects?id=$id');
+  final jsonResponse = jsonDecode(response.body);
+  Map<String, dynamic> json = Map.from(jsonResponse);
   return Project.fromJson(json);
 }

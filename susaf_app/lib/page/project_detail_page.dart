@@ -141,38 +141,6 @@ class _ProjectDetailPageState extends State<ProjectDetailPage> {
                   }
                 },
               ),
-              // ListView.builder(
-              //   shrinkWrap: true,
-              //   itemCount: _features.length,
-              //   itemBuilder: (context, index) {
-              //     return Padding(
-              //       padding: const EdgeInsets.only(bottom: 10),
-              //       child: ListTile(
-              //         isThreeLine: true,
-              //         title: Padding(
-              //           padding: const EdgeInsets.only(bottom: 5),
-              //           child: Text(
-              //             _features[index],
-              //           ),
-              //         ),
-              //         subtitle: Row(
-              //           children: _buildDimensionChips(_features[index]),
-              //         ),
-              //         trailing: IconButton(
-              //           icon: const Icon(
-              //             Icons.delete,
-              //             color: Colors.blueGrey,
-              //           ),
-              //           onPressed: () {
-              //             setState(() {
-              //               _features.removeAt(index);
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // ),
             ],
           ),
         ],

@@ -8,8 +8,8 @@ Future<Feature> createFeature(
   final response = await HttpClient.post(
     endpoint: '/features',
     data: {
-      'Project_ID': projectId,
-      'Features_Name': feature,
+      'project_id': projectId,
+      'name': feature,
     },
   );
 
@@ -19,7 +19,7 @@ Future<Feature> createFeature(
 
 Future<List<Feature>> getAllProjectFeatures({required int projectId}) async {
   final response =
-      await HttpClient.get(endpoint: '/features?ProjectID=$projectId');
+      await HttpClient.get(endpoint: '/features?project_id=$projectId');
   final jsonResponse = jsonDecode(response.body) as List;
 
   List<Feature> features = [];
@@ -31,8 +31,8 @@ Future<List<Feature>> getAllProjectFeatures({required int projectId}) async {
 }
 
 Future<Feature> getFeatureById(int id) async {
-  final response = await HttpClient.get(endpoint: '/features?FeatureID=$id');
-  final jsonResponse = jsonDecode(response.body) as List;
-  Map<String, dynamic> json = Map.from(jsonResponse[0]);
+  final response = await HttpClient.get(endpoint: '/features?id=$id');
+  final jsonResponse = jsonDecode(response.body);
+  Map<String, dynamic> json = Map.from(jsonResponse);
   return Feature.fromJson(json);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
+import 'package:go_router/go_router.dart';
 import 'package:susaf_app/enums.dart';
 import 'package:susaf_app/model/feature.dart';
 import 'package:susaf_app/page/questionnaire_page.dart';
@@ -20,17 +21,35 @@ class _DimensionPageState extends State<DimensionPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BreadCrumb(
-          items: [
-            BreadCrumbItem(content: Text(widget.feature.name)),
-            BreadCrumbItem(content: Text(widget.dimension.name)),
-          ],
-          divider: const Icon(Icons.chevron_right),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              BreadCrumb(
+                items: [
+                  BreadCrumbItem(content: Text(widget.feature.name)),
+                  BreadCrumbItem(content: Text(widget.dimension.name)),
+                ],
+                divider: const Icon(Icons.chevron_right),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  context.go(
+                      '/impacts?featureId=${widget.feature.id}&dimension=${widget.dimension.name}');
+                },
+                child: const Text('Generate Impacts'),
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 10,
         ),
-        const QuestionnairePage(),
+        QuestionnairePage(
+          feature: widget.feature,
+          dimension: widget.dimension,
+        ),
       ],
     );
   }
