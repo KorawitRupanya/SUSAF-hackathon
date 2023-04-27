@@ -88,7 +88,7 @@ class _MyFormState extends State<MyForm> {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Image.asset(
-                          '../../../assets/ChatGPT_logo.png',
+                          'images/ChatGPT_logo.png',
                           width: 80,
                           height: 80,
                         ),

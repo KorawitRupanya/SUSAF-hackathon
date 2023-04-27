@@ -21,8 +21,8 @@ class PentagonPage extends StatelessWidget {
           ),
         ),
         Container(
-          width: 350,
-          height: 350,
+          width: 400,
+          height: 400,
           padding: const EdgeInsets.all(18.0),
           decoration: ShapeDecoration(
             color: Colors.lightBlueAccent.shade100,
@@ -32,8 +32,8 @@ class PentagonPage extends StatelessWidget {
           ),
         ),
         Container(
-          width: 200,
-          height: 200,
+          width: 250,
+          height: 250,
           padding: const EdgeInsets.all(18.0),
           decoration: ShapeDecoration(
             color: Colors.lightBlue.shade100,
