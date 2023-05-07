@@ -1,8 +1,8 @@
 import 'package:card_loading/card_loading.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:susaf_app/api/chatgpt.dart';
 import 'package:susaf_app/enums.dart';
+import 'package:susaf_app/widget/impact_card.dart';
 
 class ImpactPage extends StatefulWidget {
   final int featureId;
@@ -20,8 +20,6 @@ class ImpactPage extends StatefulWidget {
 class _ImpactPageState extends State<ImpactPage> {
   final List<Widget> boxes = [];
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -30,7 +28,11 @@ class _ImpactPageState extends State<ImpactPage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (boxes.isEmpty) {
-            boxes.addAll((snapshot.data ?? []).map((p) => _buildImpactBox(p)));
+            boxes.addAll(
+              (snapshot.data ?? []).map(
+                (impact) => ImpactCard(impact: impact),
+              ),
+            );
           }
           return boxes.isEmpty
               ? const Text("AI could not generate impacts...")
@@ -42,136 +44,6 @@ class _ImpactPageState extends State<ImpactPage> {
           return _buildLoadingProjects();
         }
       },
-    );
-  }
-
-  Widget _buildImpactBox(String impact) {
-    int selectedLevel = 0, selectedType = 0, selectedProbability = 0;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: ExpandablePanel(
-        header: Card(
-          color: Colors.teal,
-          child: ListTile(
-            title: Text(impact),
-            // subtitle: Text(project.description),
-          ),
-        ),
-        collapsed: Container(),
-        expanded: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  children: [
-                    const Expanded(flex: 1, child: Text('Level')),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Wrap(
-                        spacing: 5.0,
-                        children: List<Widget>.generate(
-                          levels.keys.length,
-                          (int index) {
-                            return ChoiceChip(
-                              selectedColor: Colors.greenAccent,
-                              backgroundColor: Colors.teal,
-                              label: Text(levels[index]!),
-                              selected: selectedLevel == index,
-                              onSelected: (bool selected) {
-                                setState(() {
-                                  if (selected) {
-                                    selectedLevel = index;
-                                  }
-                                });
-                              },
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  children: [
-                    const Expanded(flex: 1, child: Text('Probability')),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Wrap(
-                        spacing: 5.0,
-                        children: List<Widget>.generate(
-                          probabilities.keys.length,
-                          (int index) {
-                            return ChoiceChip(
-                              selectedColor: Colors.greenAccent,
-                              backgroundColor: Colors.teal,
-                              label: Text(probabilities[index]!),
-                              selected: selectedProbability == index,
-                              onSelected: (bool selected) {
-                                setState(() {
-                                  if (selected) {
-                                    selectedProbability = index;
-                                  }
-                                });
-                              },
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  children: [
-                    const Expanded(flex: 1, child: Text('Impact Type')),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Wrap(
-                        spacing: 5.0,
-                        children: List<Widget>.generate(
-                          impactTypes.keys.length,
-                          (int index) {
-                            return ChoiceChip(
-                              selectedColor: Colors.greenAccent,
-                              backgroundColor: Colors.teal,
-                              label: Text(impactTypes[index]!),
-                              selected: selectedType == index,
-                              onSelected: (bool selected) {
-                                setState(() {
-                                  if (selected) {
-                                    selectedType = index;
-                                  }
-                                });
-                              },
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
