@@ -22,28 +22,31 @@ class _ImpactPageState extends State<ImpactPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: generateImpacts(
-          featureId: widget.featureId, dimension: widget.dimension),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          if (boxes.isEmpty) {
-            boxes.addAll(
-              (snapshot.data ?? []).map(
-                (impact) => ImpactCard(impact: impact),
-              ),
-            );
+    return Padding(
+      padding: const EdgeInsets.all(50),
+      child: FutureBuilder(
+        future: generateImpacts(
+            featureId: widget.featureId, dimension: widget.dimension),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (boxes.isEmpty) {
+              boxes.addAll(
+                (snapshot.data ?? []).map(
+                  (impact) => ImpactCard(impact: impact),
+                ),
+              );
+            }
+            return boxes.isEmpty
+                ? const Text("AI could not generate impacts...")
+                : ListView.builder(
+                    itemCount: boxes.length,
+                    itemBuilder: (context, index) => boxes[index],
+                  );
+          } else {
+            return _buildLoadingProjects();
           }
-          return boxes.isEmpty
-              ? const Text("AI could not generate impacts...")
-              : ListView.builder(
-                  itemCount: boxes.length,
-                  itemBuilder: (context, index) => boxes[index],
-                );
-        } else {
-          return _buildLoadingProjects();
-        }
-      },
+        },
+      ),
     );
   }
 

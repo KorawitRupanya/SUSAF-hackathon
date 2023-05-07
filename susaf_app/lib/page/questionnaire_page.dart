@@ -24,17 +24,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   List<Question>? questions;
   int currentIndex = 0;
 
-  List<Map<String, dynamic>> rows = [
-    // {
-    //   "background":
-    //       'Value means the worth, or usefulness of something, principles or standards; judgement of what is important in life.',
-    //   "question":
-    //       'How can the product or service create or destroy monetary value ? For whom ?',
-    //   "answer": 'Dummy answer',
-    //   "chatGPT": '✅',
-    //   "edit": '✅'
-    // },
-  ];
+  List<Map<String, dynamic>> rows = [];
   List cols = [
     {
       "title": 'Background',

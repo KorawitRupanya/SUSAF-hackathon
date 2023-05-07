@@ -18,37 +18,40 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: FutureBuilder(
-            future: getAllProjects(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (boxes.isEmpty) {
-                  boxes.addAll(
-                      (snapshot.data ?? []).map((p) => _buildProjectBox(p)));
+    return Padding(
+      padding: const EdgeInsets.all(50),
+      child: Row(
+        children: [
+          Expanded(
+            child: FutureBuilder(
+              future: getAllProjects(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (boxes.isEmpty) {
+                    boxes.addAll(
+                        (snapshot.data ?? []).map((p) => _buildProjectBox(p)));
+                  }
+                  return boxes.isEmpty
+                      ? const Text(
+                          "You don't have any projects at the moment. Please create a new project to start your SusAF journey!")
+                      : ListView.builder(
+                          itemCount: boxes.length,
+                          itemBuilder: (context, index) => boxes[index],
+                        );
+                } else {
+                  return _buildLoadingProjects();
                 }
-                return boxes.isEmpty
-                    ? const Text(
-                        "You don't have any projects at the moment. Please create a new project to start your SusAF journey!")
-                    : ListView.builder(
-                        itemCount: boxes.length,
-                        itemBuilder: (context, index) => boxes[index],
-                      );
-              } else {
-                return _buildLoadingProjects();
-              }
-            },
+              },
+            ),
           ),
-        ),
-        const SizedBox(
-          width: 50,
-        ),
-        Expanded(
-          child: _buildAddProjectBox(),
-        ),
-      ],
+          const SizedBox(
+            width: 50,
+          ),
+          Expanded(
+            child: _buildAddProjectBox(),
+          ),
+        ],
+      ),
     );
   }
 

@@ -7,6 +7,7 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: const EdgeInsets.all(50),
       children: const [
         Text(
           'The Sustainability Awareness Framework (SusAF)',

@@ -18,39 +18,42 @@ class DimensionPage extends StatefulWidget {
 class _DimensionPageState extends State<DimensionPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BreadCrumb(
-                items: [
-                  BreadCrumbItem(content: Text(widget.feature.name)),
-                  BreadCrumbItem(content: Text(widget.dimension.name)),
-                ],
-                divider: const Icon(Icons.chevron_right),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context.go(
-                      '/impacts?featureId=${widget.feature.id}&dimension=${widget.dimension.name}');
-                },
-                child: const Text('Generate Impacts'),
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(50),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                BreadCrumb(
+                  items: [
+                    BreadCrumbItem(content: Text(widget.feature.name)),
+                    BreadCrumbItem(content: Text(widget.dimension.name)),
+                  ],
+                  divider: const Icon(Icons.chevron_right),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    context.go(
+                        '/impacts?featureId=${widget.feature.id}&dimension=${widget.dimension.name}');
+                  },
+                  child: const Text('Generate Impacts'),
+                ),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        QuestionnairePage(
-          feature: widget.feature,
-          dimension: widget.dimension,
-        ),
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+          QuestionnairePage(
+            feature: widget.feature,
+            dimension: widget.dimension,
+          ),
+        ],
+      ),
     );
   }
 }
