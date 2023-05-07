@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:susaf_app/widget/susaf_info.dart';
 
 class ResponsiveNavBarPage extends StatelessWidget {
-  final Widget child;
-  ResponsiveNavBarPage({Key? key, required this.child}) : super(key: key);
+  final Widget bodyWidget;
+  ResponsiveNavBarPage({Key? key, required this.bodyWidget}) : super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -71,16 +71,22 @@ class ResponsiveNavBarPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Tooltip(
+                Tooltip(
                   message: "The Sustainability Awareness Framework",
-                  child: Text(
-                    "SusAF",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  child: InkWell(
+                    onTap: () => context.go('/'),
+                    child: const Text(
+                      "SusAF",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-                if (isLargeScreen) Expanded(child: _navBarItems(context))
+                if (isLargeScreen)
+                  Expanded(
+                    child: _navBarItems(context),
+                  ),
               ],
             ),
           ),
@@ -91,7 +97,7 @@ class ResponsiveNavBarPage extends StatelessWidget {
             )
           ],
         ),
-        drawer: isLargeScreen ? null : _drawer(),
+        drawer: isLargeScreen ? null : _drawer(context),
         body: isLargeScreen
             ? Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,28 +109,20 @@ class ResponsiveNavBarPage extends StatelessWidget {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
-                    child: Padding(
-                      padding: const EdgeInsets.all(50),
-                      child: child,
-                    ),
+                    child: bodyWidget,
                   ),
                 ],
               )
-            : Padding(
-                padding: const EdgeInsets.all(50),
-                child: child,
-              ),
+            : bodyWidget,
       ),
     );
   }
 
-  Widget _drawer() => Drawer(
+  Widget _drawer(BuildContext context) => Drawer(
         child: ListView(
           children: _menuItems.keys
               .map((item) => ListTile(
-                    onTap: () {
-                      _scaffoldKey.currentState?.openEndDrawer();
-                    },
+                    onTap: () => context.go(_menuItems[item] ?? '/'),
                     title: Text(item),
                   ))
               .toList(),

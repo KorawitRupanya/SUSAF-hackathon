@@ -22,7 +22,7 @@ final GoRouter router = GoRouter(
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
-        return ResponsiveNavBarPage(child: child);
+        return ResponsiveNavBarPage(bodyWidget: child);
       },
       routes: [
         GoRoute(
