@@ -6,6 +6,7 @@ Widget question(BuildContext context, String questionText) {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Flexible(
               flex: 1,
@@ -13,8 +14,8 @@ Widget question(BuildContext context, String questionText) {
                 'Question',
                 style: Theme.of(context)
                     .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: Colors.lightBlueAccent),
+                    .titleLarge
+                    ?.copyWith(color: Colors.tealAccent),
               ),
             ),
             Flexible(
