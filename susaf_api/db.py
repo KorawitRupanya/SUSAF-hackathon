@@ -161,3 +161,16 @@ def add_impact(feature_id, dimension, impact_text):
         conn.commit()
         conn.close()
         return cursor.lastrowid
+
+
+def get_impacts_by_feature_id_dimension(feature_id, dimension):
+    conn = open_connection()
+    with conn.cursor() as cursor:
+        cursor.execute(
+            """SELECT * FROM impacts
+                WHERE feature_id = %s AND dimension = %s;""",
+            (feature_id, dimension),
+        )
+        impacts = cursor.fetchall()
+    conn.close()
+    return impacts

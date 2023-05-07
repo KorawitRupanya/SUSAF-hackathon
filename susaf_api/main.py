@@ -89,40 +89,50 @@ def suggestAnswers():
 
 @app.route("/impact-generation", methods=["GET"])
 def generateImpacts():
-    prompt = ""
     feature_id = request.args.get("feature_id")
     dimension = request.args.get("dimension")
-    answers = get_answers_by_feature_id_dimension_chatgpt(feature_id, dimension)
-    for answer in answers:
-        prompt += str(answer) + "\n"
+    existing_impacts = get_impacts_by_feature_id_dimension(feature_id, dimension)
 
-    prompt += str.format(
-        "\nIdentify 1-5 impacts in the {} dimension of sustainability from the given text. The impacts should be short, not more than 5 words. Use only newline character as separator between the impacts.",
-        dimension,
-    )
+    if len(existing_impacts) == 0:
+        prompt = ""
 
-    print(prompt)
-    # Define OpenAI API key
-    openai.api_key = OPENAI_KEY
+        answers = get_answers_by_feature_id_dimension_chatgpt(feature_id, dimension)
+        if len(answers) == 0:
+            return jsonify([])
+        
+        for answer in answers:
+            prompt += str(answer) + "\n"
 
-    # Set up the model and prompt
-    model_engine = "text-davinci-003"
+        prompt += str.format(
+            "\nIdentify 1-5 impacts in the {} dimension of sustainability from the given text. The impacts should be short, not more than 5 words. Use only newline character as separator between the impacts.",
+            dimension,
+        )
 
-    # Generate a response
-    completion = openai.Completion.create(
-        engine=model_engine,
-        prompt=prompt,
-        max_tokens=1024,
-        n=1,
-        stop=None,
-        temperature=0.5,
-    )
+        print(prompt)
+        # Define OpenAI API key
+        openai.api_key = OPENAI_KEY
 
-    response = str(completion.choices[0].text)
-    impacts = response.strip().split('\n')
-    for impact in impacts:
-        add_impact(feature_id, dimension, impact)
-    return jsonify(impacts)
+        # Set up the model and prompt
+        model_engine = "text-davinci-003"
+
+        # Generate a response
+        completion = openai.Completion.create(
+            engine=model_engine,
+            prompt=prompt,
+            max_tokens=1024,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
+
+        response = str(completion.choices[0].text)
+        impacts = response.strip().split("\n")
+        for impact in impacts:
+            add_impact(feature_id, dimension, impact)
+
+        return jsonify(get_impacts_by_feature_id_dimension(feature_id, dimension))
+    else:
+        return jsonify(existing_impacts)
 
 
 if __name__ == "__main__":
