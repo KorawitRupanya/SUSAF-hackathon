@@ -123,15 +123,12 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                               zebraStripe: true,
                               stripeColor1: Colors.teal.shade900,
                               stripeColor2: Colors.teal.shade600,
-                              onRowSaved: (value) {
-                                print(value);
-                              },
-                              onSubmitted: (value) {
-                                print(value);
-                              },
+                              onRowSaved: (value) {},
+                              onSubmitted: (value) {},
                               borderColor: Colors.blueGrey,
                               tdStyle: const TextStyle(
-                                  fontWeight: FontWeight.normal),
+                                fontWeight: FontWeight.normal,
+                              ),
                               trHeight: 80,
                               thStyle: const TextStyle(
                                 fontSize: 15,

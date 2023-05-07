@@ -21,7 +21,6 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
-  final _formKey = GlobalKey<FormState>();
   final _textController = TextEditingController();
   final _focusNode = FocusNode();
 

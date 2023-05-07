@@ -71,10 +71,13 @@ class ResponsiveNavBarPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "SusAF - The Sustainability Awareness Framework",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                const Tooltip(
+                  message: "The Sustainability Awareness Framework",
+                  child: Text(
+                    "SusAF",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 if (isLargeScreen) Expanded(child: _navBarItems(context))
@@ -89,23 +92,28 @@ class ResponsiveNavBarPage extends StatelessWidget {
           ],
         ),
         drawer: isLargeScreen ? null : _drawer(),
-        body: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              color: Theme.of(context).canvasColor,
-              width: MediaQuery.of(context).size.width * 0.2,
-              child: const SusafInfo(),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: Padding(
+        body: isLargeScreen
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    color: Theme.of(context).canvasColor,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: const SusafInfo(),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Padding(
+                      padding: const EdgeInsets.all(50),
+                      child: child,
+                    ),
+                  ),
+                ],
+              )
+            : Padding(
                 padding: const EdgeInsets.all(50),
                 child: child,
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
